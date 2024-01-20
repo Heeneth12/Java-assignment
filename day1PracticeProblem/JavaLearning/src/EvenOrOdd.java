@@ -1,9 +1,6 @@
-// java Program to check Whether a number is Even or Odd
-
 import java.util.Scanner;
 
-public class Problem3 {
-
+public class EvenOrOdd {
     public static void main(String[] arge) {
 
         Scanner scanner = new Scanner(System.in);
