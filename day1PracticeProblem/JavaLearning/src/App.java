@@ -1,5 +1,15 @@
+import java.util.Random;
+
 public class App {
-    public static void main(String[] args) throws Exception {
-        System.out.println("Hello, World!");
+
+    // class is the blue print of object it creat object
+
+    public static void main(String[] arge) {
+
+        Random random = new Random();
+        int RandomeNumber = random.nextInt(12);
+
+        System.out.println(RandomeNumber);
     }
+
 }
