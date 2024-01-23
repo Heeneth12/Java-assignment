@@ -4,7 +4,6 @@ public class Alphabet {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        // Prompt user to enter a single alphabet
         System.out.print("Enter a single alphabet: ");
         char ch = scanner.next().charAt(0);
 
@@ -23,8 +22,6 @@ public class Alphabet {
         } else {
             System.out.println("Invalid input. Please enter a single alphabet.");
         }
-
-        // Close the scanner
         scanner.close();
     }
 }

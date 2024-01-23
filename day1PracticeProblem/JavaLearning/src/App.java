@@ -1,15 +1,37 @@
-import java.util.Random;
-
+/**
+ * App
+ */
 public class App {
 
-    // class is the blue print of object it creat object
+    public static void main(String[] args) {
 
-    public static void main(String[] arge) {
+        InnerApp obj = new InnerApp();
+        int s1 = obj.add(2, 3);
+        int s2 = obj.sub(5, 2);
 
-        Random random = new Random();
-        int RandomeNumber = random.nextInt(12);
+        System.out.println(s1);
+        System.out.println(s2);
 
-        System.out.println(RandomeNumber);
+    }
+}
+
+class calc {
+
+    int add(int x, int y) {
+
+        int sum = x + y;
+        return sum;
+
+    }
+}
+
+/**
+ * InnerApp
+ */
+class InnerApp extends calc {
+    int sub(int x, int y) {
+        int subt = x - y;
+        return subt;
     }
 
 }
