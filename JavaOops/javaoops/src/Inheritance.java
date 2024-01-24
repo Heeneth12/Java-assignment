@@ -1,6 +1,6 @@
 //Inheritance in java
 //Inheritance allows a class to inherite attributs and 
-// behaviours from super class
+// behaviours from super class 
 
 //SuperClass
 class Calc {
