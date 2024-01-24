@@ -1,60 +1,44 @@
 import java.util.Random;
+import java.util.Stack;
 
-class InnerOopsEmployeeWages {
-    public int IS_PART_TIME;
-    public int IS_FULL_TIME;
-    public int EMP_RATE_PER_HOUR;
-    public int NUM_OF_WORKING_DAY;
-    public int MAX_HRS_IN_MONTH;
+class EmpWageBuilderMultiCompany {
+    public static final int IS_PART_TIME = 1;
+    public static final int IS_FULL_TIME = 2;
 
-    private InnerOopsEmployeeWages(int isPartTime, int isFullTime, int empRatePerHour, int numOfWorkingDay,
-            int maxHrsInMonth) {
-        IS_PART_TIME = isPartTime;
-        IS_FULL_TIME = isFullTime;
-        EMP_RATE_PER_HOUR = empRatePerHour;
-        NUM_OF_WORKING_DAY = numOfWorkingDay;
-        MAX_HRS_IN_MONTH = maxHrsInMonth;
-    }
-
-    public static InnerOopsEmployeeWages createInstance(int isPartTime, int isFullTime, int empRatePerHour,
-            int numOfWorkingDay, int maxHrsInMonth) {
-        return new InnerOopsEmployeeWages(isPartTime, isFullTime, empRatePerHour, numOfWorkingDay, maxHrsInMonth);
-    }
-
-    public void TotalWages() {
+    public void computeEmpWage(String Company, int empRatePerHour, int numOfWorkingDays, int maxHoursPerMonth) {
         int empHrs = 0;
-        int totalWorkingDay = 0;
         int totalEmpHrs = 0;
+        int totalWorkingDay = 0;
 
-        Random random = new Random();
-
-        while (totalEmpHrs <= MAX_HRS_IN_MONTH && totalWorkingDay < NUM_OF_WORKING_DAY) {
+        while (totalEmpHrs <= maxHoursPerMonth && totalWorkingDay < numOfWorkingDays) {
             totalWorkingDay++;
-            int empCheck = random.nextInt(3); // Generates a random integer between 0 (inclusive) and 3 (exclusive)
+            int empCheck = (int) Math.floor(Math.random() * 10) % 3;
+            switch (empCheck) {
+                case IS_PART_TIME:
+                    empHrs = 4;
 
-            if (empCheck == IS_PART_TIME) {
-                empHrs = 4; // Assigning part-time hours
-            } else if (empCheck == IS_FULL_TIME) {
-                empHrs = 8; // Assigning full-time hours
-            } else {
-                empHrs = 0;
+                    break;
+                case IS_FULL_TIME:
+                    empHrs = 8;
+
+                default:
+                    empHrs = 0;
+
             }
-
             totalEmpHrs += empHrs;
-            System.out.println("Day " + totalWorkingDay + " Emp hr : " + empHrs);
+            System.out.println("Day# " + totalWorkingDay + "Emp HR: " + empHrs);
         }
+        int totalEmpWage = totalEmpHrs * empRatePerHour;
+        System.out.println("Total Emp Wage for company :" + Company + " is:" + totalEmpWage);
 
-        int totalEmpWage = totalEmpHrs * EMP_RATE_PER_HOUR;
-        System.out.println("Total Emp Wage: " + totalEmpWage);
     }
+
 }
 
 public class OopsEmployeeWages {
     public static void main(String[] args) {
-        // Creating an instance of InnerOopsEmployeeWages
-        InnerOopsEmployeeWages employee = InnerOopsEmployeeWages.createInstance(1, 2, 20, 20, 100);
+        EmpWageBuilderMultiCompany obj = new EmpWageBuilderMultiCompany();
+        obj.computeEmpWage("Dmart", 20, 2, 10);
 
-        // Invoking the TotalWages method
-        employee.TotalWages();
     }
 }
