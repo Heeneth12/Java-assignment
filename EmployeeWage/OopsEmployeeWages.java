@@ -1,44 +1,35 @@
-import java.util.Random;
-import java.util.Stack;
+class uc1EmployeeAttendence {
+    public static final int is_part_time = 1;
+    public static final int is_full_time = 2;
 
-class EmpWageBuilderMultiCompany {
-    public static final int IS_PART_TIME = 1;
-    public static final int IS_FULL_TIME = 2;
+    public static void computeEmpWage(String company, int emp_rate_per_hour, int num_of_working_days,
+            int max_hrs_in_month) {
 
-    public void computeEmpWage(String Company, int empRatePerHour, int numOfWorkingDays, int maxHoursPerMonth) {
-        int empHrs = 0;
-        int totalEmpHrs = 0;
-        int totalWorkingDay = 0;
-
-        while (totalEmpHrs <= maxHoursPerMonth && totalWorkingDay < numOfWorkingDays) {
-            totalWorkingDay++;
+        int empHrs = 0, totalEmpHrs = 0, totalWorkingDays = 0;
+        while (totalEmpHrs <= max_hrs_in_month && totalWorkingDays < num_of_working_days) {
+            totalWorkingDays++;
             int empCheck = (int) Math.floor(Math.random() * 10) % 3;
             switch (empCheck) {
-                case IS_PART_TIME:
+                case is_part_time:
                     empHrs = 4;
-
                     break;
-                case IS_FULL_TIME:
+                case is_full_time:
                     empHrs = 8;
-
+                    break;
                 default:
                     empHrs = 0;
-
             }
             totalEmpHrs += empHrs;
-            System.out.println("Day# " + totalWorkingDay + "Emp HR: " + empHrs);
+            System.out.println("Day#: " + totalWorkingDays + " Emp hr: " + empHrs);
         }
-        int totalEmpWage = totalEmpHrs * empRatePerHour;
-        System.out.println("Total Emp Wage for company :" + Company + " is:" + totalEmpWage);
+        int totalEmpWage = totalEmpHrs * emp_rate_per_hour;
+        System.out.println("Total Emp Wage: " + totalEmpWage);
 
     }
 
-}
-
-public class OopsEmployeeWages {
     public static void main(String[] args) {
-        EmpWageBuilderMultiCompany obj = new EmpWageBuilderMultiCompany();
-        obj.computeEmpWage("Dmart", 20, 2, 10);
-
+        computeEmpWage("DMart", 20, 20, 100);
+        computeEmpWage("Jio", 15, 23, 100);
     }
+
 }
