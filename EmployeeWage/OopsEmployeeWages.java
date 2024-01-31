@@ -1,60 +1,56 @@
-import java.util.Random;
+class uc1EmployeeAttendence {
+    public static final int is_part_time = 1;
+    public static final int is_full_time = 2;
 
-class InnerOopsEmployeeWages {
-    public int IS_PART_TIME;
-    public int IS_FULL_TIME;
-    public int EMP_RATE_PER_HOUR;
-    public int NUM_OF_WORKING_DAY;
-    public int MAX_HRS_IN_MONTH;
+    private int numOfCompany = 0;
+    private CompanyEmpWage[] companyEmpWageArray;
 
-    private InnerOopsEmployeeWages(int isPartTime, int isFullTime, int empRatePerHour, int numOfWorkingDay,
-            int maxHrsInMonth) {
-        IS_PART_TIME = isPartTime;
-        IS_FULL_TIME = isFullTime;
-        EMP_RATE_PER_HOUR = empRatePerHour;
-        NUM_OF_WORKING_DAY = numOfWorkingDay;
-        MAX_HRS_IN_MONTH = maxHrsInMonth;
+    public uc1EmployeeAttendence() {
+        companyEmpWageArray = new CompanyEmpWage[5];
     }
 
-    public static InnerOopsEmployeeWages createInstance(int isPartTime, int isFullTime, int empRatePerHour,
-            int numOfWorkingDay, int maxHrsInMonth) {
-        return new InnerOopsEmployeeWages(isPartTime, isFullTime, empRatePerHour, numOfWorkingDay, maxHrsInMonth);
+    private void addCompanyEmpWage(String company, int emp_rate_per_hour, int num_of_working_days,
+            int max_hrs_in_month) {
+        companyEmpWageArray[numOfCompany] = new CompanyEmpWage(company, emp_rate_per_hour, num_of_working_days,
+                max_hrs_in_month);
+        numOfCompany++;
     }
 
-    public void TotalWages() {
-        int empHrs = 0;
-        int totalWorkingDay = 0;
-        int totalEmpHrs = 0;
-
-        Random random = new Random();
-
-        while (totalEmpHrs <= MAX_HRS_IN_MONTH && totalWorkingDay < NUM_OF_WORKING_DAY) {
-            totalWorkingDay++;
-            int empCheck = random.nextInt(3); // Generates a random integer between 0 (inclusive) and 3 (exclusive)
-
-            if (empCheck == IS_PART_TIME) {
-                empHrs = 4; // Assigning part-time hours
-            } else if (empCheck == IS_FULL_TIME) {
-                empHrs = 8; // Assigning full-time hours
-            } else {
-                empHrs = 0;
-            }
-
-            totalEmpHrs += empHrs;
-            System.out.println("Day " + totalWorkingDay + " Emp hr : " + empHrs);
+    private void computeEmpWage() {
+        for (int i = 0; i < numOfCompany; i++) {
+            companyEmpWageArray[i].setTotalEmpWage(this.computeEmpWage(companyEmpWageArray[i]));
+            System.out.println(companyEmpWageArray[i]);
         }
-
-        int totalEmpWage = totalEmpHrs * EMP_RATE_PER_HOUR;
-        System.out.println("Total Emp Wage: " + totalEmpWage);
     }
-}
 
-public class OopsEmployeeWages {
+    private int computeEmpWage(CompanyEmpWage companyEmpWage) {
+
+        int empHrs = 0, totalEmpHrs = 0, totalWorkingDays = 0;
+        while (totalEmpHrs <= companyEmpWage.max_hrs_in_month
+                && totalWorkingDays < companyEmpWage.num_of_working_days) {
+            totalWorkingDays++;
+            int empCheck = (int) Math.floor(Math.random() * 10) % 3;
+            switch (empCheck) {
+                case is_part_time:
+                    empHrs = 4;
+                    break;
+                case is_full_time:
+                    empHrs = 8;
+                    break;
+                default:
+                    empHrs = 0;
+            }
+            totalEmpHrs += empHrs;
+            System.out.println("Day#: " + totalWorkingDays + " Emp hr: " + empHrs);
+        }
+        return totalEmpHrs * companyEmpWage.emp_rate_per_hour;
+    }
+
     public static void main(String[] args) {
-        // Creating an instance of InnerOopsEmployeeWages
-        InnerOopsEmployeeWages employee = InnerOopsEmployeeWages.createInstance(1, 2, 20, 20, 100);
-
-        // Invoking the TotalWages method
-        employee.TotalWages();
+        uc1EmployeeAttendence empWage = new uc1EmployeeAttendence();
+        empWage.addCompanyEmpWage("Jio", 15, 23, 100);
+        empWage.addCompanyEmpWage("DMart", 20, 20, 100);
+        empWage.computeEmpWage();
     }
+
 }
